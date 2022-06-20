@@ -48,5 +48,20 @@ describe('Greeting component', () => {
         expect(outputElement).toBeInTheDocument();
     });
 
+    test('does not render other conditional text is not shown after clicking', () => {
+        //Arrange
+        render(<Greeting />);
+
+        //Act
+        const buttonElement = screen.getByRole('button');
+        userEvent.click(buttonElement);
+
+        //Assert
+        //use queryByText because it will return null if element is not found
+        //thus, we can check if the element is then null with .toBeNull
+        const outputElement = screen.queryByText('Not changed', {exact: false });
+        expect(outputElement).toBeNull();
+
+    });
 });
 
